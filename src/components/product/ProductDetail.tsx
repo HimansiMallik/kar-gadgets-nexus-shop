@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -84,6 +83,117 @@ const productData = {
       connectivity: "Thunderbolt/USB 4 ports, Wi-Fi 6, Bluetooth 5.0",
       dimensions: "30.41 x 21.24 x 1.56 cm, 1.4 kg",
       os: "macOS Ventura"
+    }
+  },
+  "14": {
+    id: 14,
+    name: "Dell XPS 15",
+    price: 180000,
+    originalPrice: 195000,
+    discount: 8,
+    category: "laptops",
+    images: [
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1588702547919-26089e690ecc?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Platinum Silver", "Frost White"],
+    storage: ["512GB", "1TB", "2TB"],
+    availability: true,
+    rating: 4.7,
+    reviewCount: 92,
+    description: "Experience premium craftsmanship and performance with the Dell XPS 15. Featuring a stunning edge-to-edge display, powerful Intel processors, and dedicated NVIDIA graphics, this laptop delivers exceptional performance for creative professionals and demanding users.",
+    highlights: [
+      "11th Gen Intel Core i7/i9 processors",
+      "NVIDIA GeForce RTX 3050/3050 Ti graphics",
+      "15.6-inch InfinityEdge display with up to 4K+ resolution",
+      "Premium CNC aluminum and carbon fiber construction",
+      "Up to 12 hours of battery life",
+      "Immersive Waves MaxxAudio Pro audio"
+    ],
+    specifications: {
+      display: "15.6-inch FHD+/4K+ InfinityEdge display",
+      processor: "11th Gen Intel Core i7/i9",
+      memory: "16GB to 64GB DDR4 RAM",
+      storage: "512GB to 2TB PCIe SSD",
+      battery: "Up to 12 hours",
+      connectivity: "Thunderbolt 4, USB-C, WiFi 6, Bluetooth 5.1",
+      dimensions: "344.72 x 230.14 x 18 mm, 1.8 kg",
+      os: "Windows 11 Pro"
+    }
+  },
+  "15": {
+    id: 15,
+    name: "ASUS ROG Strix G15",
+    price: 195000,
+    originalPrice: 210000,
+    discount: 7,
+    category: "laptops",
+    images: [
+      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1588702547919-26089e690ecc?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Eclipse Gray", "Electro Punk"],
+    storage: ["512GB", "1TB"],
+    availability: true,
+    rating: 4.6,
+    reviewCount: 78,
+    description: "Dominate the gaming arena with the ASUS ROG Strix G15. Featuring cutting-edge AMD Ryzen processors, powerful NVIDIA graphics, and a high-refresh-rate display, this gaming laptop delivers exceptional performance for the most demanding games and applications.",
+    highlights: [
+      "AMD Ryzen 9 processors for exceptional gaming performance",
+      "NVIDIA GeForce RTX 3060/3070 graphics",
+      "15.6-inch FHD display with 300Hz refresh rate",
+      "RGB keyboard with per-key lighting",
+      "Advanced cooling system with liquid metal compound",
+      "Immersive DTS:X Ultra audio"
+    ],
+    specifications: {
+      display: "15.6-inch FHD IPS display, 300Hz refresh rate",
+      processor: "AMD Ryzen 9 5900HX",
+      memory: "16GB to 32GB DDR4 RAM",
+      storage: "512GB or 1TB PCIe SSD",
+      battery: "Up to 8 hours",
+      connectivity: "USB 3.2 Type-C, USB 3.2 Type-A, HDMI 2.0b, WiFi 6, Bluetooth 5.1",
+      dimensions: "354.9 x 259.9 x 27.2 mm, 2.3 kg",
+      os: "Windows 10 Home"
+    }
+  },
+  "16": {
+    id: 16,
+    name: "Lenovo ThinkPad X1 Carbon",
+    price: 170000,
+    originalPrice: 185000,
+    discount: 8,
+    category: "laptops",
+    images: [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Black"],
+    storage: ["256GB", "512GB", "1TB"],
+    availability: true,
+    rating: 4.8,
+    reviewCount: 112,
+    description: "Experience premium business performance with the Lenovo ThinkPad X1 Carbon. Engineered for professionals, this ultralight laptop combines military-grade durability with enterprise-class security and productivity features in a sleek, portable design.",
+    highlights: [
+      "11th Gen Intel Core processors for exceptional business performance",
+      "Ultralight carbon-fiber chassis at just 1.13 kg",
+      "14-inch UHD display with Dolby Vision HDR",
+      "Military-grade durability (MIL-STD-810H certified)",
+      "Up to 19.5 hours of battery life",
+      "Advanced security features including ThinkShield"
+    ],
+    specifications: {
+      display: "14-inch FHD+ or UHD display with Dolby Vision",
+      processor: "11th Gen Intel Core i5/i7 vPro",
+      memory: "8GB to 32GB LPDDR4x RAM",
+      storage: "256GB to 1TB PCIe SSD",
+      battery: "Up to 19.5 hours",
+      connectivity: "Thunderbolt 4, USB-A, HDMI 2.0, WiFi 6, Bluetooth 5.2",
+      dimensions: "314.5 x 221.6 x 14.9 mm, 1.13 kg",
+      os: "Windows 10 Pro"
     }
   }
 };
@@ -332,8 +442,8 @@ const ProductDetail = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-4 pt-4">
-              <Button className="flex-1 py-6 text-lg">Add to Cart</Button>
-              <Button variant="secondary" className="flex-1 py-6 text-lg">Buy Now</Button>
+              <Button className="flex-1 py-6 text-lg bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700">Add to Cart</Button>
+              <Button variant="secondary" className="flex-1 py-6 text-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600">Buy Now</Button>
             </div>
 
             {/* EMI Options */}
@@ -413,7 +523,7 @@ const ProductDetail = () => {
                 <p className="text-muted-foreground mb-6">
                   Reviews are available for logged in customers only.
                 </p>
-                <Button>Login to View Reviews</Button>
+                <Button className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700">Login to View Reviews</Button>
               </div>
             </TabsContent>
           </Tabs>
