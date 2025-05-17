@@ -12,40 +12,79 @@ import ProductNotFound from "./ProductNotFound";
 
 // Mock product data (this would come from an API in a real app)
 const productData = {
-  id: 1,
-  name: "iPhone 15 Pro Max",
-  price: 175000,
-  originalPrice: 190000,
-  discount: 8,
-  category: "brand-new",
-  images: [
-    "https://images.unsplash.com/photo-1695048133142-1a20484429be?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1678911820864-e5f2c588851f?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1697279965874-32db429642a6?q=80&w=800&auto=format&fit=crop"
-  ],
-  colors: ["Natural Titanium", "Blue Titanium", "Black Titanium"],
-  storage: ["128GB", "256GB", "512GB", "1TB"],
-  availability: true,
-  rating: 4.8,
-  reviewCount: 124,
-  description: "Experience the iPhone 15 Pro Max with its powerful A17 Pro chip, a stunning display, and exceptional camera system. This premium device offers our most advanced features in a sleek, durable design.",
-  highlights: [
-    "A17 Pro chip for extraordinary performance",
-    "48MP main camera with 5x optical zoom",
-    "6.7-inch Super Retina XDR display",
-    "Titanium design, tougher and lighter than ever",
-    "All-day battery life with up to 29 hours video playback",
-    "iOS 17 with new customization options"
-  ],
-  specifications: {
-    display: "6.7-inch Super Retina XDR display with ProMotion",
-    processor: "A17 Pro chip with 6-core CPU and 5-core GPU",
-    camera: "48MP main, 12MP ultra wide, 12MP telephoto with 5x optical zoom",
-    battery: "Up to 29 hours video playback",
-    storage: "Available in 128GB, 256GB, 512GB, and 1TB",
-    connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
-    dimensions: "159.9 x 76.7 x 8.25 mm, 221g",
-    os: "iOS 17"
+  "1": {
+    id: 1,
+    name: "iPhone 15 Pro Max",
+    price: 175000,
+    originalPrice: 190000,
+    discount: 8,
+    category: "brand-new",
+    images: [
+      "https://images.unsplash.com/photo-1695048133142-1a20484429be?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678911820864-e5f2c588851f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1697279965874-32db429642a6?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Natural Titanium", "Blue Titanium", "Black Titanium"],
+    storage: ["128GB", "256GB", "512GB", "1TB"],
+    availability: true,
+    rating: 4.8,
+    reviewCount: 124,
+    description: "Experience the iPhone 15 Pro Max with its powerful A17 Pro chip, a stunning display, and exceptional camera system. This premium device offers our most advanced features in a sleek, durable design.",
+    highlights: [
+      "A17 Pro chip for extraordinary performance",
+      "48MP main camera with 5x optical zoom",
+      "6.7-inch Super Retina XDR display",
+      "Titanium design, tougher and lighter than ever",
+      "All-day battery life with up to 29 hours video playback",
+      "iOS 17 with new customization options"
+    ],
+    specifications: {
+      display: "6.7-inch Super Retina XDR display with ProMotion",
+      processor: "A17 Pro chip with 6-core CPU and 5-core GPU",
+      camera: "48MP main, 12MP ultra wide, 12MP telephoto with 5x optical zoom",
+      battery: "Up to 29 hours video playback",
+      storage: "Available in 128GB, 256GB, 512GB, and 1TB",
+      connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
+      dimensions: "159.9 x 76.7 x 8.25 mm, 221g",
+      os: "iOS 17"
+    }
+  },
+  "13": {
+    id: 13,
+    name: "MacBook Pro M2",
+    price: 250000,
+    originalPrice: 265000,
+    discount: 5,
+    category: "laptops",
+    images: [
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1588702547919-26089e690ecc?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Space Gray", "Silver"],
+    storage: ["256GB", "512GB", "1TB", "2TB"],
+    availability: true,
+    rating: 4.9,
+    reviewCount: 87,
+    description: "The MacBook Pro with M2 chip delivers extraordinary performance and battery life in a portable design. Featuring a stunning Retina display, magic keyboard, and powerful processors, it's designed for professionals who demand the best.",
+    highlights: [
+      "Apple M2 chip for breakthrough performance",
+      "Up to 20 hours of battery life",
+      "Stunning 13-inch Retina display with True Tone",
+      "Backlit Magic Keyboard and Touch ID",
+      "Studio-quality three-microphone array",
+      "Thunderbolt ports for high-speed connectivity"
+    ],
+    specifications: {
+      display: "13.3-inch Retina display with True Tone",
+      processor: "8-core CPU, 10-core GPU Apple M2 chip",
+      memory: "Up to 24GB unified memory",
+      storage: "Up to 2TB SSD storage",
+      battery: "Up to 20 hours of battery life",
+      connectivity: "Thunderbolt/USB 4 ports, Wi-Fi 6, Bluetooth 5.0",
+      dimensions: "30.41 x 21.24 x 1.56 cm, 1.4 kg",
+      os: "macOS Ventura"
+    }
   }
 };
 
@@ -59,8 +98,8 @@ const ProductDetail = () => {
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   
   // In a real app, you would fetch the product data based on the ID
-  // For this example, we'll just use the mock data if the ID matches
-  const product = id === "1" ? productData : null;
+  // For this example, we'll check if the ID exists in our mockup data
+  const product = id && productData[id as keyof typeof productData];
   
   if (!product) {
     return <ProductNotFound />;

@@ -43,6 +43,7 @@ const App = () => (
               <Route path="return-policy" element={<ReturnPolicyPage />} />
               <Route path="terms" element={<TermsPage />} />
               <Route path="contact" element={<ContactPage />} />
+              <Route path="products" element={<CategoryPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

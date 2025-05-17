@@ -10,18 +10,21 @@ const heroSlides = [
     title: "Latest Smartphones",
     description: "Discover cutting-edge technology with our newest collection of smartphones.",
     image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?q=80&w=1200&auto=format&fit=crop",
+    backgroundPosition: "center",
     link: "/category/brand-new",
   },
   {
     title: "Quality Used Phones",
     description: "Premium pre-owned devices, thoroughly tested and guaranteed to work like new.",
     image: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?q=80&w=1200&auto=format&fit=crop",
+    backgroundPosition: "center",
     link: "/category/used",
   },
   {
     title: "Powerful Laptops",
     description: "Experience unmatched performance with our selection of premium laptops.",
     image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1200&auto=format&fit=crop",
+    backgroundPosition: "center",
     link: "/category/laptops",
   },
 ];
@@ -52,9 +55,10 @@ const Hero = () => {
             className="h-full w-full bg-cover bg-center"
             style={{
               backgroundImage: `url(${heroSlides[current].image})`,
+              backgroundPosition: heroSlides[current].backgroundPosition,
             }}
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40" />
         </motion.div>
       </AnimatePresence>
 
@@ -77,10 +81,10 @@ const Hero = () => {
               <h1 className="text-5xl font-bold mb-4">
                 {heroSlides[current].title}
               </h1>
-              <p className="text-lg mb-8 text-gray-200">
+              <p className="text-xl mb-8 text-gray-200">
                 {heroSlides[current].description}
               </p>
-              <Button asChild size="lg" className="group">
+              <Button asChild size="lg" className="group bg-primary hover:bg-primary/90">
                 <Link to={heroSlides[current].link}>
                   Explore Now
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -96,7 +100,7 @@ const Hero = () => {
             <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === current ? "bg-white w-6" : "bg-white/50"
+                index === current ? "bg-primary w-10" : "bg-white/50"
               }`}
               onClick={() => setCurrent(index)}
             />
