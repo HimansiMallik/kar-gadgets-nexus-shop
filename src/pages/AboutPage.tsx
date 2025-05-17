@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, Clock, MapPin, ShieldCheck, Package, TrendingUp } from "lucide-react";
@@ -6,19 +5,19 @@ import { Phone, Mail, Clock, MapPin, ShieldCheck, Package, TrendingUp } from "lu
 const AboutPage = () => {
   const teamMembers = [
     {
-      name: "Krishna Mallick",
+      name: "Krish",
       role: "Founder & CEO",
-      image: "https://i.pravatar.cc/300?u=team1"
+      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=300&h=300&fit=crop&crop=faces&q=80"
     },
     {
-      name: "Ankit Sharma",
+      name: "Rishi",
       role: "Head of Operations",
-      image: "https://i.pravatar.cc/300?u=team2"
+      image: "https://images.unsplash.com/photo-1578496479763-c21c718af028?w=300&h=300&fit=crop&crop=faces&q=80"
     },
     {
-      name: "Priya Singh",
-      role: "Customer Relations",
-      image: "https://i.pravatar.cc/300?u=team3"
+      name: "Aman",
+      role: "All managing director",
+      image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=300&h=300&fit=crop&crop=faces&q=80"
     }
   ];
 

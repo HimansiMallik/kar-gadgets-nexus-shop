@@ -69,10 +69,10 @@ export default {
           accent: "#FFD700",
         },
         shop: {
-          primary: "#14b8a6",
-          secondary: "#0d9488",
-          accent: "#10b981",
-          highlight: "#34d399",
+          primary: "#ad4328",
+          secondary: "#b65741",
+          accent: "#c06b54",
+          highlight: "#d27f6a",
         },
       },
       borderRadius: {
