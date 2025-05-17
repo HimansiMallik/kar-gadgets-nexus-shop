@@ -9,7 +9,7 @@ const categories = [
     title: "Brand New Phones",
     description: "Latest models with full warranty",
     icon: Smartphone,
-    color: "from-blue-500 to-purple-600",
+    color: "from-teal-500 to-emerald-600",
     link: "/category/brand-new"
   },
   {
@@ -17,7 +17,7 @@ const categories = [
     title: "Used Phones",
     description: "Quality certified pre-owned devices",
     icon: RefreshCw,
-    color: "from-green-500 to-teal-600",
+    color: "from-emerald-500 to-green-600",
     link: "/category/used"
   },
   {
@@ -25,7 +25,7 @@ const categories = [
     title: "Accessories",
     description: "Enhance your device experience",
     icon: Headphones,
-    color: "from-orange-500 to-amber-600",
+    color: "from-cyan-500 to-teal-600",
     link: "/category/accessories"
   },
   {
@@ -33,7 +33,7 @@ const categories = [
     title: "Laptops",
     description: "For work, gaming and creativity",
     icon: Laptop,
-    color: "from-red-500 to-pink-600",
+    color: "from-green-500 to-emerald-600",
     link: "/category/laptops"
   }
 ];
@@ -67,12 +67,12 @@ const CategoryGrid = () => {
                 to={category.link}
                 className="block h-full group"
               >
-                <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full shadow-sm border border-gray-100 dark:border-gray-800 transition-all duration-300 group-hover:shadow-xl group-hover:border-primary/50">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full shadow-sm border border-gray-100 dark:border-gray-800 transition-all duration-300 group-hover:shadow-xl group-hover:border-teal-500/50">
                   <div className={`bg-gradient-to-r ${category.color} p-8 flex justify-center`}>
                     <category.icon className="h-12 w-12 text-white" />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-xl font-semibold mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
                       {category.title}
                     </h3>
                     <p className="text-muted-foreground">
