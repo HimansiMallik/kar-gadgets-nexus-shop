@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -5,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import { 
   User, 
-  ShoppingCart,
   ChevronDown,
   Menu,
   X,
@@ -15,6 +15,7 @@ import {
   Laptop
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import CartButton from "@/components/cart/CartButton";
 
 // Import dropdown component
 import {
@@ -170,11 +171,7 @@ const Navbar = () => {
             {!isMobile && (
               <>
                 {/* Shopping Cart */}
-                <Button variant="ghost" size="icon" asChild>
-                  <Link to="/cart">
-                    <ShoppingCart className="h-5 w-5" />
-                  </Link>
-                </Button>
+                <CartButton />
                 
                 {/* User Profile / Login */}
                 <Button variant="ghost" size="icon" asChild>
@@ -265,8 +262,7 @@ const Navbar = () => {
                   className="flex items-center"
                   onClick={toggleMenu}
                 >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  Cart
+                  <CartButton showLabel={true} />
                 </Link>
                 
                 <span className="text-muted-foreground">|</span>

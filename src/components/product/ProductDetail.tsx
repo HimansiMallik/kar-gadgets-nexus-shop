@@ -1,11 +1,14 @@
+
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Share2, Shield, Calendar, Truck, RefreshCw, MessageSquare, Check } from "lucide-react";
+import { toast } from "sonner";
+import { useCart } from "@/contexts/CartContext";
 import EMIOptions from "./EMIOptions";
 import ProductNotFound from "./ProductNotFound";
 
@@ -46,6 +49,43 @@ const productData = {
       connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
       dimensions: "159.9 x 76.7 x 8.25 mm, 221g",
       os: "iOS 17"
+    }
+  },
+  "2": {
+    id: 2,
+    name: "Samsung Galaxy S23 Ultra",
+    price: 165000,
+    originalPrice: 175000,
+    discount: 6,
+    category: "brand-new",
+    images: [
+      "https://images.unsplash.com/photo-1678911820864-e5f2c588851f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1697279965874-32db429642a6?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1695048133142-1a20484429be?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Phantom Black", "Cream", "Green", "Lavender"],
+    storage: ["128GB", "256GB", "512GB", "1TB"],
+    availability: true,
+    rating: 4.7,
+    reviewCount: 98,
+    description: "The Samsung Galaxy S23 Ultra sets a new standard with its 200MP camera, embedded S Pen, and powerful Snapdragon 8 Gen 2 processor, all packaged in a sleek design with a stunning Dynamic AMOLED 2X display.",
+    highlights: [
+      "200MP wide camera for incredible detail",
+      "S Pen functionality built-in",
+      "Snapdragon 8 Gen 2 for lightning-fast performance",
+      "6.8-inch QHD+ Dynamic AMOLED 2X display",
+      "5000mAh battery with fast charging",
+      "Enhanced nightography features"
+    ],
+    specifications: {
+      display: "6.8-inch QHD+ Dynamic AMOLED 2X, 120Hz",
+      processor: "Snapdragon 8 Gen 2 for Galaxy",
+      camera: "200MP wide, 12MP ultrawide, 10MP 3x telephoto, 10MP 10x telephoto",
+      battery: "5000mAh with 45W fast charging",
+      storage: "128GB/256GB/512GB/1TB options",
+      connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
+      dimensions: "163.4 x 78.1 x 8.9mm, 234g",
+      os: "Android 13 with One UI 5.1"
     }
   },
   "13": {
@@ -200,15 +240,18 @@ const productData = {
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedStorage, setSelectedStorage] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   
   // In a real app, you would fetch the product data based on the ID
-  // For this example, we'll check if the ID exists in our mockup data
+  // Check if the ID exists in our mockup data
   const product = id && productData[id as keyof typeof productData];
   
   if (!product) {
@@ -236,6 +279,26 @@ const ProductDetail = () => {
   
   const handleZoomToggle = () => {
     setIsZoomed(!isZoomed);
+  };
+
+  const handleAddToCart = () => {
+    addToCart(
+      {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.images[selectedImage],
+      },
+      quantity,
+      product.colors[selectedColor],
+      product.storage[selectedStorage]
+    );
+    toast.success(`${product.name} added to cart!`);
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    navigate('/cart');
   };
 
   return (
@@ -440,10 +503,45 @@ const ProductDetail = () => {
               </div>
             </div>
 
+            {/* Quantity Selection */}
+            <div>
+              <h3 className="text-sm font-medium mb-2">Quantity</h3>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  disabled={quantity <= 1}
+                >
+                  -
+                </Button>
+                <span className="w-8 text-center">{quantity}</span>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setQuantity(quantity + 1)}
+                >
+                  +
+                </Button>
+              </div>
+            </div>
+
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-4 pt-4">
-              <Button className="flex-1 py-6 text-lg bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700">Add to Cart</Button>
-              <Button variant="secondary" className="flex-1 py-6 text-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600">Buy Now</Button>
+              <Button 
+                className="flex-1 py-6 text-lg bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+                onClick={handleAddToCart}
+              >
+                Add to Cart
+              </Button>
+              
+              <Button 
+                variant="secondary" 
+                className="flex-1 py-6 text-lg bg-gradient-to-r from-shop-accent to-shop-highlight text-white hover:from-shop-accent/90 hover:to-shop-highlight/90"
+                onClick={handleBuyNow}
+              >
+                Buy Now
+              </Button>
             </div>
 
             {/* EMI Options */}
@@ -523,7 +621,7 @@ const ProductDetail = () => {
                 <p className="text-muted-foreground mb-6">
                   Reviews are available for logged in customers only.
                 </p>
-                <Button className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700">Login to View Reviews</Button>
+                <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">Login to View Reviews</Button>
               </div>
             </TabsContent>
           </Tabs>
