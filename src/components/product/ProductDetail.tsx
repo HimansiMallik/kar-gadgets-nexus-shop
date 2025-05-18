@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -86,6 +86,117 @@ const productData = {
       connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
       dimensions: "163.4 x 78.1 x 8.9mm, 234g",
       os: "Android 13 with One UI 5.1"
+    }
+  },
+  "3": {
+    id: 3,
+    name: "Google Pixel 8 Pro",
+    price: 120000,
+    originalPrice: 130000,
+    discount: 8,
+    category: "brand-new",
+    images: [
+      "https://images.unsplash.com/photo-1696348045798-288db4d4bd18?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678911820864-e5f2c588851f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1697279965874-32db429642a6?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Obsidian", "Porcelain", "Bay"],
+    storage: ["128GB", "256GB", "512GB"],
+    availability: true,
+    rating: 4.7,
+    reviewCount: 82,
+    description: "Meet Google Pixel 8 Pro, the best photo-taking Pixel phone yet. Powered by Google's newest chip, Google Tensor G3, it brings you better performance and improved battery life in a sleek design with a polished aluminum frame.",
+    highlights: [
+      "7.2-inch Super Actua display, Google's brightest display ever",
+      "Advanced camera system with Super Res Zoom",
+      "Google Tensor G3 for advanced AI features",
+      "Live Translate for conversations, chats, and captions",
+      "Best in photo and video editing with Magic Editor",
+      "Up to 72-hour battery life with Extreme Battery Saver"
+    ],
+    specifications: {
+      display: "7.2-inch LTPO OLED display with 120Hz refresh rate",
+      processor: "Google Tensor G3 with Titan M2 security",
+      camera: "50MP wide, 48MP ultrawide, 48MP telephoto with Super Res Zoom",
+      battery: "Up to 24 hours (or 72 with Extreme Battery Saver)",
+      storage: "128GB, 256GB, or 512GB",
+      connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
+      dimensions: "162.6 x 76.5 x 8.8mm, 213g",
+      os: "Android 14"
+    }
+  },
+  "4": {
+    id: 4,
+    name: "OnePlus 12",
+    price: 100000,
+    originalPrice: 110000,
+    discount: 9,
+    category: "brand-new",
+    images: [
+      "https://images.unsplash.com/photo-1676455981746-2146e00edf99?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678911820864-e5f2c588851f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1696348045798-288db4d4bd18?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Flowy Emerald", "Silky Black"],
+    storage: ["128GB", "256GB", "512GB"],
+    availability: false,
+    rating: 4.6,
+    reviewCount: 64,
+    description: "The OnePlus 12 sets a new standard with the Snapdragon 8 Gen 3 processor, Hasselblad camera system, and industry-leading 100W SUPERVOOC charging. Experience premium performance and cutting-edge technology in one sleek device.",
+    highlights: [
+      "Snapdragon 8 Gen 3 for ultimate performance",
+      "Hasselblad camera system with 50MP main sensor",
+      "6.82-inch 2K 120Hz ProXDR display",
+      "100W SUPERVOOC fast charging",
+      "5400 mAh dual-cell battery",
+      "OxygenOS based on Android 14"
+    ],
+    specifications: {
+      display: "6.82-inch 2K 120Hz ProXDR display",
+      processor: "Snapdragon 8 Gen 3",
+      camera: "50MP main, 48MP ultrawide, 64MP telephoto with 3x optical zoom",
+      battery: "5400 mAh with 100W SUPERVOOC charging",
+      storage: "128GB/256GB/512GB UFS 4.0",
+      connectivity: "5G, Wi-Fi 7, Bluetooth 5.4, NFC",
+      dimensions: "164.3 x 75.8 x 9.15 mm, 220g",
+      os: "OxygenOS based on Android 14"
+    }
+  },
+  "5": {
+    id: 5,
+    name: "iPhone 13 (Used)",
+    price: 80000,
+    originalPrice: 90000,
+    discount: 11,
+    category: "used",
+    images: [
+      "https://images.unsplash.com/photo-1632633173522-47456de71b76?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678911820864-e5f2c588851f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1695048133142-1a20484429be?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Midnight", "Blue", "Pink", "Starlight"],
+    storage: ["128GB", "256GB", "512GB"],
+    availability: true,
+    rating: 4.5,
+    reviewCount: 128,
+    description: "This certified pre-owned iPhone 13 offers exceptional value with its A15 Bionic chip, amazing camera system, and Super Retina XDR display. Each device has been thoroughly inspected and certified to meet our quality standards.",
+    highlights: [
+      "A15 Bionic chip for smooth performance",
+      "Advanced dual-camera system",
+      "6.1-inch Super Retina XDR display",
+      "Certified pre-owned with 6-month warranty",
+      "Face ID for secure authentication",
+      "Compatible with iOS 17"
+    ],
+    specifications: {
+      display: "6.1-inch Super Retina XDR display",
+      processor: "A15 Bionic chip",
+      camera: "12MP dual camera system with Night mode",
+      battery: "Up to 19 hours video playback",
+      storage: "128GB, 256GB, or 512GB",
+      connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, NFC",
+      dimensions: "146.7 x 71.5 x 7.65 mm, 174g",
+      os: "iOS 17"
     }
   },
   "13": {
@@ -235,6 +346,43 @@ const productData = {
       dimensions: "314.5 x 221.6 x 14.9 mm, 1.13 kg",
       os: "Windows 10 Pro"
     }
+  },
+  "9": {
+    id: 9,
+    name: "Sony WH-1000XM4",
+    price: 45000,
+    originalPrice: 48000,
+    discount: 6,
+    category: "accessories",
+    images: [
+      "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Black", "Silver", "Blue"],
+    storage: ["N/A"],
+    availability: true,
+    rating: 4.8,
+    reviewCount: 156,
+    description: "Experience industry-leading noise cancellation with the Sony WH-1000XM4 wireless headphones. With exceptional sound quality, smart features, and long battery life, these premium headphones are perfect for music lovers and frequent travelers.",
+    highlights: [
+      "Industry-leading noise cancellation",
+      "Up to 30 hours of battery life",
+      "DSEE Extreme upscaling for compressed audio",
+      "Multipoint connection for simultaneous pairing",
+      "Speak-to-chat technology automatically pauses playback",
+      "Wearing detection for smart playback"
+    ],
+    specifications: {
+      driver: "40mm, dome type (CCAW Voice coil)",
+      frequency: "4Hz-40,000Hz",
+      battery: "Up to 30 hours with NC on",
+      charging: "USB-C, 5 hours playback with 10 min quick charge",
+      features: "Active Noise Cancellation, Touch Sensor, 360 Reality Audio",
+      connectivity: "Bluetooth 5.0, NFC, 3.5mm audio cable",
+      weight: "254g",
+      included: "Carrying case, charging cable, audio cable"
+    }
   }
 };
 
@@ -249,10 +397,30 @@ const ProductDetail = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   
-  // In a real app, you would fetch the product data based on the ID
-  // Check if the ID exists in our mockup data
-  const product = id && productData[id as keyof typeof productData];
+  // Fetch product data based on ID
+  useEffect(() => {
+    // Simulate API fetch with timeout
+    setLoading(true);
+    const timer = setTimeout(() => {
+      if (id && productData[id as keyof typeof productData]) {
+        setProduct(productData[id as keyof typeof productData]);
+      }
+      setLoading(false);
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, [id]);
+  
+  if (loading) {
+    return (
+      <div className="py-16 container mx-auto flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b65741]"></div>
+      </div>
+    );
+  }
   
   if (!product) {
     return <ProductNotFound />;
@@ -338,7 +506,7 @@ const ProductDetail = () => {
 
             {/* Thumbnail Images */}
             <div className="flex justify-center gap-3 mt-4">
-              {product.images.map((image, idx) => (
+              {product.images.map((image: string, idx: number) => (
                 <motion.button
                   key={idx}
                   whileHover={{ y: -2 }}
@@ -346,7 +514,7 @@ const ProductDetail = () => {
                   onClick={() => handleImageClick(idx)}
                   className={`w-20 h-20 rounded-lg overflow-hidden border-2 ${
                     selectedImage === idx 
-                      ? "border-primary shadow-md" 
+                      ? "border-[#ad4328] shadow-md" 
                       : "border-border/50"
                   }`}
                 >
@@ -367,7 +535,7 @@ const ProductDetail = () => {
                 onClick={toggleFavorite}
               >
                 <Heart 
-                  className={`h-4 w-4 mr-2 ${isFavorited ? "fill-red-500 text-red-500" : ""}`} 
+                  className={`h-4 w-4 mr-2 ${isFavorited ? "fill-[#ad4328] text-[#ad4328]" : ""}`} 
                 />
                 {isFavorited ? "Favorited" : "Add to Favorites"}
               </Button>
@@ -392,7 +560,7 @@ const ProductDetail = () => {
                   {product.category === "brand-new" ? "Brand New" : product.category}
                 </Badge>
                 <Badge variant="outline" className="rounded-full bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-950 dark:border-blue-800 dark:text-blue-400">
-                  In Stock
+                  {product.availability ? "In Stock" : "Out of Stock"}
                 </Badge>
               </div>
               
@@ -434,7 +602,7 @@ const ProductDetail = () => {
                     <s className="text-muted-foreground">
                       NPR {product.originalPrice.toLocaleString()}
                     </s>
-                    <Badge className="bg-red-500">
+                    <Badge className="bg-[#ad4328]">
                       {product.discount}% OFF
                     </Badge>
                   </>
@@ -449,13 +617,13 @@ const ProductDetail = () => {
             <div>
               <h3 className="text-sm font-medium mb-2">Color</h3>
               <div className="flex gap-3">
-                {product.colors.map((color, idx) => (
+                {product.colors.map((color: string, idx: number) => (
                   <Button
                     key={idx}
                     variant="outline"
                     className={`relative px-5 border-2 ${
                       selectedColor === idx 
-                        ? "border-primary" 
+                        ? "border-[#ad4328]" 
                         : "border-border/50"
                     }`}
                     onClick={() => setSelectedColor(idx)}
@@ -464,7 +632,7 @@ const ProductDetail = () => {
                     {selectedColor === idx && (
                       <motion.div
                         layoutId="selectedColor"
-                        className="absolute inset-0 border-2 border-primary rounded-md"
+                        className="absolute inset-0 border-2 border-[#ad4328] rounded-md"
                         initial={false}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
@@ -475,33 +643,35 @@ const ProductDetail = () => {
             </div>
 
             {/* Storage Selection */}
-            <div>
-              <h3 className="text-sm font-medium mb-2">Storage</h3>
-              <div className="flex flex-wrap gap-3">
-                {product.storage.map((size, idx) => (
-                  <Button
-                    key={idx}
-                    variant="outline"
-                    className={`relative px-5 border-2 ${
-                      selectedStorage === idx 
-                        ? "border-primary" 
-                        : "border-border/50"
-                    }`}
-                    onClick={() => setSelectedStorage(idx)}
-                  >
-                    {size}
-                    {selectedStorage === idx && (
-                      <motion.div
-                        layoutId="selectedStorage"
-                        className="absolute inset-0 border-2 border-primary rounded-md"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      />
-                    )}
-                  </Button>
-                ))}
+            {product.storage[0] !== "N/A" && (
+              <div>
+                <h3 className="text-sm font-medium mb-2">Storage</h3>
+                <div className="flex flex-wrap gap-3">
+                  {product.storage.map((size: string, idx: number) => (
+                    <Button
+                      key={idx}
+                      variant="outline"
+                      className={`relative px-5 border-2 ${
+                        selectedStorage === idx 
+                          ? "border-[#ad4328]" 
+                          : "border-border/50"
+                      }`}
+                      onClick={() => setSelectedStorage(idx)}
+                    >
+                      {size}
+                      {selectedStorage === idx && (
+                        <motion.div
+                          layoutId="selectedStorage"
+                          className="absolute inset-0 border-2 border-[#ad4328] rounded-md"
+                          initial={false}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                    </Button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Quantity Selection */}
             <div>
@@ -529,16 +699,18 @@ const ProductDetail = () => {
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-4 pt-4">
               <Button 
-                className="flex-1 py-6 text-lg bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+                className="flex-1 py-6 text-lg bg-gradient-to-r from-[#ad4328] to-[#b65741] hover:from-[#ad4328]/90 hover:to-[#b65741]/90"
                 onClick={handleAddToCart}
+                disabled={!product.availability}
               >
                 Add to Cart
               </Button>
               
               <Button 
                 variant="secondary" 
-                className="flex-1 py-6 text-lg bg-gradient-to-r from-shop-accent to-shop-highlight text-white hover:from-shop-accent/90 hover:to-shop-highlight/90"
+                className="flex-1 py-6 text-lg bg-gradient-to-r from-[#ad4328] to-[#b65741] text-white hover:from-[#ad4328]/90 hover:to-[#b65741]/90"
                 onClick={handleBuyNow}
+                disabled={!product.availability}
               >
                 Buy Now
               </Button>
@@ -590,9 +762,9 @@ const ProductDetail = () => {
                 <div className="bg-muted/50 rounded-lg p-6">
                   <h3 className="text-xl font-semibold mb-4">Key Highlights</h3>
                   <ul className="space-y-2">
-                    {product.highlights.map((highlight, idx) => (
+                    {product.highlights.map((highlight: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
+                        <Check className="h-5 w-5 text-[#ad4328] mt-0.5 shrink-0" />
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -621,7 +793,7 @@ const ProductDetail = () => {
                 <p className="text-muted-foreground mb-6">
                   Reviews are available for logged in customers only.
                 </p>
-                <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">Login to View Reviews</Button>
+                <Button className="bg-gradient-to-r from-[#ad4328] to-[#b65741] hover:from-[#ad4328]/90 hover:to-[#b65741]/90">Login to View Reviews</Button>
               </div>
             </TabsContent>
           </Tabs>

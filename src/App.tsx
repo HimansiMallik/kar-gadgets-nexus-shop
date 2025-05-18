@@ -22,6 +22,8 @@ import ReturnPolicyPage from "./pages/ReturnPolicyPage";
 import TermsPage from "./pages/TermsPage";
 import ContactPage from "./pages/ContactPage";
 import CartPage from "./pages/CartPage";
+import HelpPage from "./pages/HelpPage";
+import PaymentPage from "./pages/PaymentPage";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,8 @@ const App = () => (
                 <Route path="contact" element={<ContactPage />} />
                 <Route path="cart" element={<CartPage />} />
                 <Route path="products" element={<CategoryPage />} />
+                <Route path="help" element={<HelpPage />} />
+                <Route path="payment" element={<PaymentPage />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
