@@ -198,6 +198,80 @@ const productData = {
       os: "iOS 17"
     }
   },
+  "8": {
+    id: 8,
+    name: "Samsung Galaxy Z Fold 5",
+    price: 260000,
+    originalPrice: 275000,
+    discount: 5,
+    category: "brand-new",
+    images: [
+      "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1675703858184-1937cb030e24?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1665370272681-bd5483b2971e?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Phantom Black", "Cream", "Blue"],
+    storage: ["256GB", "512GB", "1TB"],
+    availability: true,
+    rating: 4.8,
+    reviewCount: 67,
+    description: "Experience the future of smartphones with the Samsung Galaxy Z Fold5. This innovative device combines a phone and tablet in one, with a foldable Dynamic AMOLED 2X display and cutting-edge technology for productivity and entertainment.",
+    highlights: [
+      "7.6-inch foldable Main Screen with 120Hz refresh rate",
+      "6.2-inch Cover Screen for quick interactions",
+      "Snapdragon 8 Gen 2 for Galaxy",
+      "S Pen support for precision and control",
+      "Advanced camera system with pro-grade features",
+      "Improved hinge design for durability"
+    ],
+    specifications: {
+      display: "Main: 7.6-inch Dynamic AMOLED 2X, Cover: 6.2-inch Dynamic AMOLED 2X",
+      processor: "Snapdragon 8 Gen 2 for Galaxy",
+      camera: "50MP main, 12MP ultrawide, 10MP telephoto with 3x optical zoom",
+      battery: "4400mAh dual battery with 25W fast charging",
+      storage: "256GB/512GB/1TB options",
+      connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, NFC",
+      dimensions: "Folded: 154.9 x 67.1 x 13.4mm, Unfolded: 154.9 x 129.9 x 6.1mm",
+      os: "Android 13 with One UI 5.1.1"
+    }
+  },
+  "9": {
+    id: 9,
+    name: "Sony WH-1000XM4",
+    price: 45000,
+    originalPrice: 48000,
+    discount: 6,
+    category: "accessories",
+    images: [
+      "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=800&auto=format&fit=crop"
+    ],
+    colors: ["Black", "Silver", "Blue"],
+    storage: ["N/A"],
+    availability: true,
+    rating: 4.8,
+    reviewCount: 156,
+    description: "Experience industry-leading noise cancellation with the Sony WH-1000XM4 wireless headphones. With exceptional sound quality, smart features, and long battery life, these premium headphones are perfect for music lovers and frequent travelers.",
+    highlights: [
+      "Industry-leading noise cancellation",
+      "Up to 30 hours of battery life",
+      "DSEE Extreme upscaling for compressed audio",
+      "Multipoint connection for simultaneous pairing",
+      "Speak-to-chat technology automatically pauses playback",
+      "Wearing detection for smart playback"
+    ],
+    specifications: {
+      driver: "40mm, dome type (CCAW Voice coil)",
+      frequency: "4Hz-40,000Hz",
+      battery: "Up to 30 hours with NC on",
+      charging: "USB-C, 5 hours playback with 10 min quick charge",
+      features: "Active Noise Cancellation, Touch Sensor, 360 Reality Audio",
+      connectivity: "Bluetooth 5.0, NFC, 3.5mm audio cable",
+      weight: "254g",
+      included: "Carrying case, charging cable, audio cable"
+    }
+  },
   "13": {
     id: 13,
     name: "MacBook Pro M2",
@@ -345,43 +419,6 @@ const productData = {
       dimensions: "314.5 x 221.6 x 14.9 mm, 1.13 kg",
       os: "Windows 10 Pro"
     }
-  },
-  "9": {
-    id: 9,
-    name: "Sony WH-1000XM4",
-    price: 45000,
-    originalPrice: 48000,
-    discount: 6,
-    category: "accessories",
-    images: [
-      "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=800&auto=format&fit=crop"
-    ],
-    colors: ["Black", "Silver", "Blue"],
-    storage: ["N/A"],
-    availability: true,
-    rating: 4.8,
-    reviewCount: 156,
-    description: "Experience industry-leading noise cancellation with the Sony WH-1000XM4 wireless headphones. With exceptional sound quality, smart features, and long battery life, these premium headphones are perfect for music lovers and frequent travelers.",
-    highlights: [
-      "Industry-leading noise cancellation",
-      "Up to 30 hours of battery life",
-      "DSEE Extreme upscaling for compressed audio",
-      "Multipoint connection for simultaneous pairing",
-      "Speak-to-chat technology automatically pauses playback",
-      "Wearing detection for smart playback"
-    ],
-    specifications: {
-      driver: "40mm, dome type (CCAW Voice coil)",
-      frequency: "4Hz-40,000Hz",
-      battery: "Up to 30 hours with NC on",
-      charging: "USB-C, 5 hours playback with 10 min quick charge",
-      features: "Active Noise Cancellation, Touch Sensor, 360 Reality Audio",
-      connectivity: "Bluetooth 5.0, NFC, 3.5mm audio cable",
-      weight: "254g",
-      included: "Carrying case, charging cable, audio cable"
-    }
   }
 };
 
@@ -406,6 +443,9 @@ const ProductDetail = () => {
     const timer = setTimeout(() => {
       if (id && productData[id as keyof typeof productData]) {
         setProduct(productData[id as keyof typeof productData]);
+      } else {
+        console.log("Product not found for ID:", id);
+        console.log("Available product IDs:", Object.keys(productData));
       }
       setLoading(false);
     }, 300);

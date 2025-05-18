@@ -51,6 +51,7 @@ const categories = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -70,6 +71,10 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleCategories = () => {
+    setCategoriesOpen(!categoriesOpen);
   };
 
   return (
@@ -101,14 +106,15 @@ const Navbar = () => {
             </NavLink>
 
             {/* Categories Dropdown */}
-            <DropdownMenu>
+            <DropdownMenu onOpenChange={setCategoriesOpen} open={categoriesOpen}>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
                   className="flex items-center px-3 py-2 text-sm font-medium"
+                  onClick={() => setCategoriesOpen(!categoriesOpen)}
                 >
                   Categories
-                  <ChevronDown className="ml-1 h-4 w-4" />
+                  <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
@@ -117,6 +123,7 @@ const Navbar = () => {
                     <Link 
                       to={`/category/${category.id}`}
                       className="flex items-center gap-2"
+                      onClick={() => setCategoriesOpen(false)}
                     >
                       <category.icon className="h-4 w-4" />
                       <span>{category.name}</span>
