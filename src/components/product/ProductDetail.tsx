@@ -779,7 +779,7 @@ const ProductDetail = () => {
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="border-b pb-3">
                       <h4 className="text-muted-foreground capitalize">{key}</h4>
-                      <p className="font-medium">{value}</p>
+                      <p className="font-medium">{String(value)}</p>
                     </div>
                   ))}
                 </div>
