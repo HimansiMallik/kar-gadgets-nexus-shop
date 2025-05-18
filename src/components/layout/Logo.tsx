@@ -9,7 +9,7 @@ const Logo = () => {
         initial={{ rotate: -10 }}
         animate={{ rotate: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative w-8 h-8"
+        className="relative w-10 h-10"
       >
         <motion.div 
           className="absolute inset-0 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg"
@@ -24,7 +24,7 @@ const Logo = () => {
           <span className="text-xl font-bold text-white">K</span>
         </motion.div>
       </motion.div>
-      <div>
+      <div className="flex items-center">
         <span className="text-xl font-bold">KAR-Gadgets</span>
       </div>
     </Link>
