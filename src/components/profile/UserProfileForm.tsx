@@ -10,45 +10,43 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Settings, Heart, Camera, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-// Mock user data
-const userData = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  phone: "+977 9812345678",
-  address: "Kathmandu, Nepal",
-  avatarUrl: "https://i.pravatar.cc/150?u=john",
-  favorites: [
-    {
-      id: 1,
-      name: "iPhone 15 Pro Max",
-      price: 175000,
-      image: "https://images.unsplash.com/photo-1695048133142-1a20484429be?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      id: 5,
-      name: "iPhone 13 (Used)",
-      price: 80000,
-      image: "https://images.unsplash.com/photo-1632633173522-47456de71b76?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      id: 13,
-      name: "MacBook Pro M2",
-      price: 250000,
-      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=600&auto=format&fit=crop",
-    },
-  ],
-};
+// Mock favorite products data
+const favoritesData = [
+  {
+    id: 1,
+    name: "iPhone 15 Pro Max",
+    price: 175000,
+    image: "https://images.unsplash.com/photo-1695048133142-1a20484429be?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: 5,
+    name: "iPhone 13 (Used)",
+    price: 80000,
+    image: "https://images.unsplash.com/photo-1632633173522-47456de71b76?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: 13,
+    name: "MacBook Pro M2",
+    price: 250000,
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=600&auto=format&fit=crop",
+  },
+];
 
 const UserProfileForm = () => {
-  const [name, setName] = useState(userData.name);
-  const [email, setEmail] = useState(userData.email);
-  const [phone, setPhone] = useState(userData.phone);
-  const [address, setAddress] = useState(userData.address);
+  const { user, logout } = useAuth();
+  const [name, setName] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [phone, setPhone] = useState("+977 9812345678"); // Default value
+  const [address, setAddress] = useState("Kathmandu, Nepal"); // Default value
   const [isEditing, setIsEditing] = useState(false);
-  const [avatar, setAvatar] = useState<string | null>(userData.avatarUrl);
+  const [avatar, setAvatar] = useState<string | null>(user?.avatar || null);
+  const [favorites] = useState(favoritesData);
   
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleSaveChanges = () => {
     // Basic validation
@@ -72,10 +70,12 @@ const UserProfileForm = () => {
   };
   
   const handleLogout = () => {
+    logout();
     toast({
       title: "Logging out",
       description: "You have been successfully logged out",
     });
+    navigate("/");
   };
   
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,10 +219,10 @@ const UserProfileForm = () => {
                               variant="outline"
                               onClick={() => {
                                 setIsEditing(false);
-                                setName(userData.name);
-                                setEmail(userData.email);
-                                setPhone(userData.phone);
-                                setAddress(userData.address);
+                                setName(user?.name || "");
+                                setEmail(user?.email || "");
+                                setPhone("+977 9812345678"); // Reset to default
+                                setAddress("Kathmandu, Nepal"); // Reset to default
                               }}
                             >
                               Cancel
@@ -238,9 +238,9 @@ const UserProfileForm = () => {
                       <div className="space-y-4">
                         <h3 className="font-semibold">Your Favorite Products</h3>
                         
-                        {userData.favorites.length > 0 ? (
+                        {favorites.length > 0 ? (
                           <div className="space-y-4">
-                            {userData.favorites.map((product) => (
+                            {favorites.map((product) => (
                               <motion.div
                                 key={product.id}
                                 className="flex bg-muted/30 p-3 rounded-lg hover:bg-muted/50 transition-colors"

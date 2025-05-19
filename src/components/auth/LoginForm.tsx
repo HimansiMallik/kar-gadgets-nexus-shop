@@ -1,13 +1,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LoginForm = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -15,8 +16,10 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
+  const { login } = useAuth();
+  const navigate = useNavigate();
   
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -29,16 +32,24 @@ const LoginForm = () => {
       return;
     }
     
-    // In a real app, this would connect to a backend authentication service
-    // For now, we'll just simulate a successful login with a toast
-    toast({
-      title: "Success",
-      description: `You have successfully logged in as ${isAdmin ? "admin" : "user"}`,
-    });
-    
-    // Reset form
-    setEmail("");
-    setPassword("");
+    try {
+      await login(email, password);
+      
+      toast({
+        title: "Success",
+        description: `You have successfully logged in as ${isAdmin ? "admin" : "user"}`,
+      });
+      
+      // Navigate to profile page after successful login
+      navigate("/profile");
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Invalid email or password",
+        variant: "destructive",
+      });
+    }
   };
   
   return (
