@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,13 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const heroSlides = [
+  {
+    title: "Samsung Galaxy S25 Ultra",
+    description: "Experience the future of mobile technology with the all-new Samsung Galaxy S25 Ultra.",
+    image: "https://images.unsplash.com/photo-1706880430970-0a4cc7c95b5e?q=80&w=1200&auto=format&fit=crop",
+    backgroundPosition: "center",
+    link: "/category/brand-new",
+  },
   {
     title: "Latest Smartphones",
     description: "Discover cutting-edge technology with our newest collection of smartphones.",
