@@ -8,7 +8,7 @@ const heroSlides = [
   {
     title: "Latest Smartphones",
     description: "Discover cutting-edge technology with our newest collection of smartphones.",
-    image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.samsung.com%2Fhk_en%2Fsmartphones%2Fgalaxy-s25-ultra%2F&psig=AOvVaw2GjMKHuOE9ozFkBaY7GGKv&ust=1747729489866000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDH5_WNr40DFQAAAAAdAAAAABAE",
+    image: "https://www.gadgetsinnepal.com.np/wp-content/uploads/2024/05/Samsung-Galaxy-S25-Ultra-Price-in-Nepal.webp",
     backgroundPosition: "center",
     link: "/category/brand-new",
   },
