@@ -16,6 +16,7 @@ import CategoryPage from "./pages/CategoryPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import EMICalculatorPage from "./pages/EMICalculatorPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import AboutPage from "./pages/AboutPage";
@@ -44,6 +45,7 @@ const App = () => (
                   <Route path="product/:id" element={<ProductDetailPage />} />
                   <Route path="emi-calculator" element={<EMICalculatorPage />} />
                   <Route path="login" element={<LoginPage />} />
+                  <Route path="register" element={<RegisterPage />} />
                   <Route path="profile" element={<ProfilePage />} />
                   <Route path="admin" element={<AdminPage />} />
                   <Route path="about" element={<AboutPage />} />
