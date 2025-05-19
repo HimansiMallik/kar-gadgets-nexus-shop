@@ -6,16 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { CalendarIcon, Calculator } from "lucide-react";
+import { CalendarIcon, Calculator, Percent } from "lucide-react";
 
 const EMICalculator = () => {
   const [price, setPrice] = useState<number>(50000);
+  const [downPayment, setDownPayment] = useState<number>(0);
+  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(0);
   const [duration, setDuration] = useState<number>(3);
   const [emiResult, setEmiResult] = useState<{
     monthlyPayment: number;
     totalPayment: number;
     interestPaid: number;
     interestRate: number;
+    loanAmount: number;
   } | null>(null);
 
   const calculateEMI = () => {
@@ -32,31 +35,61 @@ const EMICalculator = () => {
       interestRate = 6; // 6% interest for any other duration
     }
     
+    const loanAmount = price - downPayment;
     const monthlyInterestRate = interestRate / 100 / 12;
     let monthlyPayment: number;
     
     if (interestRate === 0) {
       // Simple division for zero interest
-      monthlyPayment = price / duration;
+      monthlyPayment = loanAmount / duration;
     } else {
       // Standard EMI formula
-      monthlyPayment = price * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, duration) / (Math.pow(1 + monthlyInterestRate, duration) - 1);
+      monthlyPayment = loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, duration) / (Math.pow(1 + monthlyInterestRate, duration) - 1);
     }
     
     const totalPayment = monthlyPayment * duration;
-    const interestPaid = totalPayment - price;
+    const interestPaid = totalPayment - loanAmount;
     
     setEmiResult({
       monthlyPayment,
       totalPayment,
       interestPaid,
       interestRate,
+      loanAmount
     });
   };
   
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value) || 0;
     setPrice(value);
+    
+    // Recalculate down payment amount based on percentage
+    const newDownPayment = Math.round((downPaymentPercent / 100) * value);
+    setDownPayment(newDownPayment);
+    
+    setEmiResult(null);
+  };
+
+  const handleDownPaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value) || 0;
+    const validValue = Math.min(value, price); // Down payment cannot exceed price
+    setDownPayment(validValue);
+    
+    // Update the percentage based on the amount
+    const newPercent = price > 0 ? Math.round((validValue / price) * 100) : 0;
+    setDownPaymentPercent(newPercent);
+    
+    setEmiResult(null);
+  };
+
+  const handleDownPaymentPercentChange = (value: number[]) => {
+    const percent = value[0];
+    setDownPaymentPercent(percent);
+    
+    // Calculate the down payment amount based on the percentage
+    const amount = Math.round((percent / 100) * price);
+    setDownPayment(amount);
+    
     setEmiResult(null);
   };
   
@@ -112,6 +145,52 @@ const EMICalculator = () => {
                     className="text-lg"
                     min={0}
                   />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="downPayment">Down Payment (NPR)</Label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold text-primary">{formatCurrency(downPayment)}</span>
+                    <span className="text-sm text-muted-foreground">({downPaymentPercent}%)</span>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <Input
+                    id="downPayment"
+                    type="number"
+                    value={downPayment}
+                    onChange={handleDownPaymentChange}
+                    className="w-full"
+                    min={0}
+                    max={price}
+                  />
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Percent className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">Down payment percentage</span>
+                </div>
+                
+                <Slider
+                  id="downPaymentPercent"
+                  defaultValue={[0]}
+                  max={100}
+                  min={0}
+                  step={5}
+                  value={[downPaymentPercent]}
+                  onValueChange={handleDownPaymentPercentChange}
+                  className="py-4"
+                />
+                
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>0%</span>
+                  <span>25%</span>
+                  <span>50%</span>
+                  <span>75%</span>
+                  <span>100%</span>
                 </div>
               </div>
 
@@ -183,6 +262,21 @@ const EMICalculator = () => {
                       <p className="text-muted-foreground mb-1">Interest Rate</p>
                       <h3 className="text-2xl font-bold text-shop-accent">
                         {emiResult.interestRate}%
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                      <p className="text-muted-foreground mb-1">Loan Amount</p>
+                      <h3 className="text-lg font-bold">
+                        {formatCurrency(Math.round(emiResult.loanAmount))}
+                      </h3>
+                    </div>
+                    <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                      <p className="text-muted-foreground mb-1">Down Payment</p>
+                      <h3 className="text-lg font-bold">
+                        {formatCurrency(downPayment)}
                       </h3>
                     </div>
                   </div>
