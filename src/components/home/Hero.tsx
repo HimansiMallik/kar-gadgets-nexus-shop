@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,7 @@ const heroSlides = [
   {
     title: "Latest Smartphones",
     description: "Discover cutting-edge technology with our newest collection of smartphones.",
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1707343848873-d6a834b5f9b9?q=80&w=1200&auto=format&fit=crop",
     backgroundPosition: "center",
     link: "/category/brand-new",
   },
