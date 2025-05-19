@@ -15,12 +15,22 @@ const ProfilePage = () => {
     }
   }, [user, isLoading, navigate]);
 
-  // Show loading or redirect user if not authenticated
-  if (isLoading || !user) {
-    return null; // Or a loading spinner
+  // Show loading state while checking authentication
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
   }
 
-  return <UserProfileForm />;
+  // If user exists, show the profile
+  if (user) {
+    return <UserProfileForm />;
+  }
+
+  // This will only briefly show before the redirect happens
+  return null;
 };
 
 export default ProfilePage;
