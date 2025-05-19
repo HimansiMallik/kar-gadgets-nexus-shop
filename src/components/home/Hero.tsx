@@ -8,7 +8,7 @@ const heroSlides = [
   {
     title: "Latest Smartphones",
     description: "Discover cutting-edge technology with our newest collection of smartphones.",
-    image: "https://images.unsplash.com/photo-1707343848873-d6a834b5f9b9?q=80&w=1200&auto=format&fit=crop",
+    image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.samsung.com%2Fhk_en%2Fsmartphones%2Fgalaxy-s25-ultra%2F&psig=AOvVaw2GjMKHuOE9ozFkBaY7GGKv&ust=1747729489866000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDH5_WNr40DFQAAAAAdAAAAABAE",
     backgroundPosition: "center",
     link: "/category/brand-new",
   },
