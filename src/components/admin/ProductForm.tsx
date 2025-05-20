@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -26,25 +27,13 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
   const [category, setCategory] = useState(initialData?.category || "brand-new");
   const [stock, setStock] = useState(initialData?.stock?.toString() || "");
   const [description, setDescription] = useState(initialData?.description || "");
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>(initialData?.image || "");
+  const [imageUrl, setImageUrl] = useState(initialData?.image || "");
   const { toast } = useToast();
   
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Basic validation
     if (!name || !price || !category || !stock) {
       toast({
         title: "Error",
@@ -52,17 +41,6 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
         variant: "destructive",
       });
       return;
-    }
-
-    let image = imagePreview;
-    if (imageFile) {
-      // Convert image file to base64
-      const reader = new FileReader();
-      const base64Promise = new Promise((resolve) => {
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(imageFile);
-      });
-      image = await base64Promise as string;
     }
     
     const productData = {
@@ -72,10 +50,32 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
       category,
       stock: parseInt(stock),
       description,
-      image,
+      image: imageUrl || "https://placehold.co/600x400?text=Product+Image",
     };
     
     onSubmit(productData);
+  };
+  
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        staggerChildren: 0.1
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -20,
+      transition: { duration: 0.2 }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
   };
   
   return (
@@ -87,9 +87,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
     >
       <motion.div
         className="bg-card border rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
       >
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="text-lg font-semibold">
@@ -101,7 +102,7 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
         </div>
         
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="space-y-2">
+          <motion.div variants={itemVariants} className="space-y-2">
             <Label htmlFor="name">Product Name</Label>
             <Input
               id="name"
@@ -109,10 +110,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter product name"
             />
-          </div>
+          </motion.div>
           
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <motion.div variants={itemVariants} className="space-y-2">
               <Label htmlFor="price">Price (₹)</Label>
               <Input
                 id="price"
@@ -121,9 +122,9 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="0.00"
               />
-            </div>
+            </motion.div>
             
-            <div className="space-y-2">
+            <motion.div variants={itemVariants} className="space-y-2">
               <Label htmlFor="stock">Stock</Label>
               <Input
                 id="stock"
@@ -132,10 +133,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
                 onChange={(e) => setStock(e.target.value)}
                 placeholder="0"
               />
-            </div>
+            </motion.div>
           </div>
           
-          <div className="space-y-2">
+          <motion.div variants={itemVariants} className="space-y-2">
             <Label htmlFor="category">Category</Label>
             <Select 
               value={category} 
@@ -151,9 +152,9 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
                 <SelectItem value="accessories">Accessories</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </motion.div>
           
-          <div className="space-y-2">
+          <motion.div variants={itemVariants} className="space-y-2">
             <Label htmlFor="description">Description</Label>
             <Textarea
               id="description"
@@ -162,41 +163,52 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
               placeholder="Enter product description"
               rows={3}
             />
-          </div>
+          </motion.div>
           
-          <div className="space-y-2">
-            <Label htmlFor="image">Product Image</Label>
-            <div className="flex items-center gap-2">
+          <motion.div variants={itemVariants} className="space-y-2">
+            <Label htmlFor="imageUrl">Image URL</Label>
+            <div className="grid grid-cols-[1fr_auto] gap-2">
               <Input
-                id="image"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
+                id="imageUrl"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="https://example.com/image.jpg"
               />
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => document.getElementById("image")?.click()}
-                className="w-full"
+                size="icon"
+                className="aspect-square"
               >
-                <Upload className="h-4 w-4 mr-2" />
-                {imageFile ? "Change Image" : "Upload Image"}
+                <Upload className="h-4 w-4" />
               </Button>
             </div>
-          </div>
+          </motion.div>
           
-          {imagePreview && (
-            <div className="relative overflow-hidden rounded-md border h-48 flex items-center justify-center">
-              <img
-                src={imagePreview}
-                alt="Product preview"
-                className="object-contain w-full h-full"
-              />
-            </div>
+          {imageUrl && (
+            <motion.div
+              variants={itemVariants}
+              className="relative overflow-hidden rounded-md border h-48 flex items-center justify-center"
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="Product preview"
+                  className="object-contain w-full h-full"
+                />
+              ) : (
+                <div className="text-muted-foreground flex flex-col items-center justify-center">
+                  <ImageIcon className="h-8 w-8 mb-2 opacity-50" />
+                  <span>No image preview</span>
+                </div>
+              )}
+            </motion.div>
           )}
           
-          <div className="flex items-center justify-end space-x-2 pt-4">
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-end space-x-2 pt-4"
+          >
             <Button
               type="button"
               variant="outline"
@@ -207,7 +219,7 @@ const ProductForm = ({ onSubmit, onCancel, initialData }: ProductFormProps) => {
             <Button type="submit">
               {initialData ? "Update Product" : "Add Product"}
             </Button>
-          </div>
+          </motion.div>
         </form>
       </motion.div>
     </motion.div>
