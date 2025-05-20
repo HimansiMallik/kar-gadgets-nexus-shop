@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
@@ -12,14 +11,13 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
-  role?: "user" | "admin"; // Add role for admin differentiation
+  role?: "user" | "admin";
 }
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: () => Promise<void>;
   signup: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
   isAdmin: boolean;
@@ -40,47 +38,60 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-  // Check for stored user on initial load
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-      setIsAdmin(parsedUser.role === "admin");
-    }
-    setIsLoading(false);
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        const email = session.user.email;
+        setUser({
+          id: session.user.id,
+          email: email || "",
+          name: email?.split("@")[0] || "",
+        });
+        setIsAdmin(email === "krish69@gmail.com");
+      }
+      setIsLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        const email = session.user.email;
+        setUser({
+          id: session.user.id,
+          email: email || "",
+          name: email?.split("@")[0] || "",
+        });
+        setIsAdmin(email === "krish69@gmail.com");
+      } else {
+        setUser(null);
+        setIsAdmin(false);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // Mock login - would be an actual API call in a real app with Supabase
-      let mockUser;
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
       
-      // Check if this is an admin login
-      if (email === "admin@example.com" && password === "admin123") {
-        mockUser = {
-          id: "admin-1",
-          name: "Admin User",
-          email: email,
-          avatar: "https://i.pravatar.cc/150?u=admin",
-          role: "admin"
-        };
-        setIsAdmin(true);
-      } else {
-        mockUser = {
-          id: "user-1",
-          name: "John Doe",
-          email: email,
-          avatar: "https://i.pravatar.cc/150?u=john",
-          role: "user"
-        };
-        setIsAdmin(false);
+      if (error) throw error;
+
+      if (data.user) {
+        setUser({
+          id: data.user.id,
+          email: data.user.email || "",
+          name: data.user.email?.split("@")[0] || "",
+        });
+        setIsAdmin(data.user.email === "krish69@gmail.com");
       }
-      
-      // Save user to local storage
-      localStorage.setItem("user", JSON.stringify(mockUser));
-      setUser(mockUser);
     } catch (error) {
       console.error("Login error:", error);
       throw error;
@@ -88,45 +99,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(false);
     }
   };
-  
-  const loginWithGoogle = async () => {
-    setIsLoading(true);
-    try {
-      // Mock Google login - would be an actual OAuth flow in a real app
-      const mockUser = {
-        id: "google-user-1",
-        name: "Google User",
-        email: "google.user@gmail.com",
-        avatar: "https://i.pravatar.cc/150?u=google",
-        role: "user"
-      };
-      
-      localStorage.setItem("user", JSON.stringify(mockUser));
-      setUser(mockUser);
-      setIsAdmin(false);
-    } catch (error) {
-      console.error("Google login error:", error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
+
   const signup = async (email: string, password: string, name: string) => {
     setIsLoading(true);
     try {
-      // Mock signup - would be an actual API call in a real app
-      const mockUser = {
-        id: `user-${Math.random().toString(36).substring(2, 10)}`,
-        name: name,
-        email: email,
-        avatar: `https://i.pravatar.cc/150?u=${email}`,
-        role: "user"
-      };
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
       
-      localStorage.setItem("user", JSON.stringify(mockUser));
-      setUser(mockUser);
-      setIsAdmin(false);
+      if (error) throw error;
+
+      if (data.user) {
+        // Create profile in profiles table
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: data.user.id,
+              full_name: name,
+              email: email,
+            }
+          ]);
+
+        if (profileError) throw profileError;
+
+        setUser({
+          id: data.user.id,
+          email: email,
+          name: name,
+        });
+      }
     } catch (error) {
       console.error("Signup error:", error);
       throw error;
@@ -135,8 +138,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("user");
+  const logout = async () => {
+    await supabase.auth.signOut();
     setUser(null);
     setIsAdmin(false);
   };
@@ -147,7 +150,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user, 
         isLoading, 
         login,
-        loginWithGoogle,
         signup,
         logout,
         isAdmin
