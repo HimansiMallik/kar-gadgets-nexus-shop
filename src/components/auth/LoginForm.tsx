@@ -23,7 +23,7 @@ const LoginForm = () => {
     if (!email || !password) {
       toast({
         title: "Error",
-        description: "Please fill in all fields",
+        description: "Please fill in all Info.",
         variant: "destructive",
       });
       return;
